@@ -1,0 +1,10 @@
+{
+  "revit_versao": "2025",
+  "templates_dir": "C:\\ProgramData\\Autodesk\\RVT 2025\\Family Templates",
+  "saida_rfa": "output/rfa",
+  "saida_logs": "output/logs",
+  "marca": {
+    "fabricante": "A DEFINIR",
+    "url": "https://a-definir.com.br"
+  }
+}

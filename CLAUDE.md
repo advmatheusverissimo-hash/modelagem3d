@@ -1,0 +1,40 @@
+# CLAUDE.md — Famílias Revit para venda
+
+## Contexto
+Biblioteca de famílias Revit (.rfa) para VENDER a arquitetos e engenheiros: janelas, mesas, escrivaninhas, camas e outros móveis. Dono: Matheus. Sempre responder em português do Brasil e executar sem perguntas desnecessárias.
+
+## Decisões fixas (não rediscutir)
+1. Famílias NATIVAS no Revit: planos de referência, extrusões/sweeps/blends, parâmetros, tipos. **Proibido DirectShape** e malha importada como geometria principal.
+2. Geração por script pyRevit (IronPython 2.7 — sem f-strings, usar `.format`) com a API de famílias. Sem MCP.
+3. Guiado por dados: `specs/*.json` é a fonte da verdade; o gerador em `FamiliasGSVL.extension/lib/gsvl_familias/` transforma spec em .rfa.
+4. Blender só para partes orgânicas (estofados), exportadas como OBJ leve (`tools/blender/exportar_obj_leve.py`), visíveis só no nível *Fino* de uma família híbrida.
+
+## Fluxo de trabalho
+- Antes de qualquer coisa: `python tools/validar_specs.py` precisa passar.
+- Gerar no Revit (botão "Gerar Família") e depois rodar o "Flex Test". Ler `output/logs/` e corrigir até ficar limpo.
+- Quando precisar que o Matheus clique algo no Revit: instruções curtas e numeradas, depois ler o log.
+- Um passo por vez, com commit git em português ao final de cada passo funcional.
+- Ao concluir uma família, atualizar `docs/CHECKLIST_VENDA.md`.
+
+## Padrão de qualidade (resumo — detalhes em docs/PADRAO.md)
+- Unidades em mm nas specs (o gerador converte para pés).
+- Origem no ponto de inserção. Planos Esquerda/Direita/Frente/Trás/Topo como referências fortes; geometria alinhada e travada.
+- Simetria por cotas EQ nos eixos centrais. Cada parâmetro de dimensão rotula uma cota.
+- Níveis de detalhe: Coarse = forma simples; Medium = forma principal; Fine = completo.
+- Materiais por parâmetro; subcategorias por peça; parâmetros de identificação (Fabricante, Modelo, Descrição, URL, OmniClass, IfcExportAs).
+- Arquivo leve (meta < 500 KB para móvel simples). Passar no flex test sem erros.
+
+## Formato da spec (resumo)
+- `parametros`: nome, tipo (`comprimento`|`simnao`|`material`|`texto`), `instancia`, `padrao`, `faixa` [min,max], `formula` opcional.
+- `planos`: nome, eixo (`x`|`y`|`z`), `pos` (expressão em mm com nomes de parâmetros), `referencia` (Left/Right/Front/Back/Top/Bottom/StrongReference/WeakReference/NotAReference).
+- Planos especiais: `@centro_x`, `@centro_y` (planos centrais do template) e `@nivel` (nível de referência).
+- `ordens`: sequências de planos (mesmo eixo) que devem ficar sempre em ordem crescente — o validador testa em todos os extremos das faixas.
+- `cotas`: `planos` [lista], `eq` true **ou** `rotulo` com o parâmetro.
+- `caixas`: extrusões retangulares com `x`/`y`/`z` = [plano_min, plano_max], `material`, `visivel` (parâmetro sim/não), `subcategoria`, `detalhe` (coarse/medium/fine).
+- `tipos`: nome + valores.
+
+## Estado atual
+- v0 do gerador escrito, NUNCA executado no Revit. Primeiro passo: rodar o piloto `specs/escrivaninha.json`, corrigir erros de API e registrar aqui o que foi aprendido.
+
+## Aprendizados (preencher a cada sessão)
+- (vazio)

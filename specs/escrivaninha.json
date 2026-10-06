@@ -1,0 +1,78 @@
+{
+  "nome_arquivo": "GSVL_Escrivaninha_Parametrica",
+  "categoria": "Mobiliário",
+  "templates": ["Mobiliário métrico.rft", "Mobiliario metrico.rft", "Metric Furniture.rft"],
+  "identificacao": {
+    "modelo": "ESC-01",
+    "descricao": "Escrivaninha paramétrica com painel frontal e gaveteiro opcional",
+    "codigo_montagem": "E2010",
+    "omniclass": "23.40.20.14.14",
+    "ifc_export_as": "IfcFurniture",
+    "versao_familia": "0.1.0"
+  },
+  "parametros": [
+    {"nome": "Largura",            "tipo": "comprimento", "instancia": false, "padrao": 1200, "faixa": [1000, 1800]},
+    {"nome": "Profundidade",       "tipo": "comprimento", "instancia": false, "padrao": 600,  "faixa": [500, 700]},
+    {"nome": "Altura",             "tipo": "comprimento", "instancia": false, "padrao": 750,  "faixa": [700, 780]},
+    {"nome": "Espessura_Tampo",    "tipo": "comprimento", "instancia": false, "padrao": 25,   "faixa": [18, 40]},
+    {"nome": "Secao_Pe",           "tipo": "comprimento", "instancia": false, "padrao": 50,   "faixa": [40, 80]},
+    {"nome": "Recuo_Painel",       "tipo": "comprimento", "instancia": false, "padrao": 100,  "faixa": [60, 150]},
+    {"nome": "Espessura_Painel",   "tipo": "comprimento", "instancia": false, "padrao": 18,   "faixa": [15, 25]},
+    {"nome": "Altura_Painel",      "tipo": "comprimento", "instancia": false, "padrao": 350,  "faixa": [250, 450]},
+    {"nome": "Largura_Gaveteiro",  "tipo": "comprimento", "instancia": false, "padrao": 400,  "faixa": [350, 450]},
+    {"nome": "Mostrar_Gaveteiro",  "tipo": "simnao",      "instancia": true,  "padrao": 1},
+    {"nome": "Material_Tampo",     "tipo": "material",    "instancia": false},
+    {"nome": "Material_Estrutura", "tipo": "material",    "instancia": false}
+  ],
+  "planos": [
+    {"nome": "Esquerda",       "eixo": "x", "pos": "-Largura/2",                                      "referencia": "Left"},
+    {"nome": "Direita",        "eixo": "x", "pos": "Largura/2",                                       "referencia": "Right"},
+    {"nome": "Pe_Esq_Int",     "eixo": "x", "pos": "-Largura/2+Secao_Pe",                             "referencia": "WeakReference"},
+    {"nome": "Pe_Dir_Int",     "eixo": "x", "pos": "Largura/2-Secao_Pe",                              "referencia": "WeakReference"},
+    {"nome": "Gav_Esq",        "eixo": "x", "pos": "Largura/2-Secao_Pe-Largura_Gaveteiro",            "referencia": "WeakReference"},
+    {"nome": "Frente",         "eixo": "y", "pos": "-Profundidade/2",                                 "referencia": "Front"},
+    {"nome": "Tras",           "eixo": "y", "pos": "Profundidade/2",                                  "referencia": "Back"},
+    {"nome": "Pe_Frente_Int",  "eixo": "y", "pos": "-Profundidade/2+Secao_Pe",                        "referencia": "WeakReference"},
+    {"nome": "Pe_Tras_Int",    "eixo": "y", "pos": "Profundidade/2-Secao_Pe",                         "referencia": "WeakReference"},
+    {"nome": "Painel_Tras",    "eixo": "y", "pos": "Profundidade/2-Recuo_Painel",                     "referencia": "NotAReference"},
+    {"nome": "Painel_Frente",  "eixo": "y", "pos": "Profundidade/2-Recuo_Painel-Espessura_Painel",    "referencia": "NotAReference"},
+    {"nome": "Topo",           "eixo": "z", "pos": "Altura",                                          "referencia": "Top"},
+    {"nome": "Tampo_Base",     "eixo": "z", "pos": "Altura-Espessura_Tampo",                          "referencia": "WeakReference"},
+    {"nome": "Painel_Base",    "eixo": "z", "pos": "Altura-Espessura_Tampo-Altura_Painel",            "referencia": "NotAReference"}
+  ],
+  "ordens": [
+    ["Esquerda", "Pe_Esq_Int", "Gav_Esq", "Pe_Dir_Int", "Direita"],
+    ["Frente", "Pe_Frente_Int", "Painel_Frente", "Painel_Tras", "Tras"],
+    ["@nivel", "Painel_Base", "Tampo_Base", "Topo"]
+  ],
+  "cotas": [
+    {"planos": ["Esquerda", "@centro_x", "Direita"], "eq": true},
+    {"planos": ["Esquerda", "Direita"],              "rotulo": "Largura"},
+    {"planos": ["Frente", "@centro_y", "Tras"],      "eq": true},
+    {"planos": ["Frente", "Tras"],                   "rotulo": "Profundidade"},
+    {"planos": ["@nivel", "Topo"],                   "rotulo": "Altura"},
+    {"planos": ["Tampo_Base", "Topo"],               "rotulo": "Espessura_Tampo"},
+    {"planos": ["Esquerda", "Pe_Esq_Int"],           "rotulo": "Secao_Pe"},
+    {"planos": ["Pe_Dir_Int", "Direita"],            "rotulo": "Secao_Pe"},
+    {"planos": ["Frente", "Pe_Frente_Int"],          "rotulo": "Secao_Pe"},
+    {"planos": ["Pe_Tras_Int", "Tras"],              "rotulo": "Secao_Pe"},
+    {"planos": ["Gav_Esq", "Pe_Dir_Int"],            "rotulo": "Largura_Gaveteiro"},
+    {"planos": ["Painel_Tras", "Tras"],              "rotulo": "Recuo_Painel"},
+    {"planos": ["Painel_Frente", "Painel_Tras"],     "rotulo": "Espessura_Painel"},
+    {"planos": ["Painel_Base", "Tampo_Base"],        "rotulo": "Altura_Painel"}
+  ],
+  "caixas": [
+    {"nome": "Tampo",     "x": ["Esquerda", "Direita"],     "y": ["Frente", "Tras"],               "z": ["Tampo_Base", "Topo"],        "material": "Material_Tampo",     "subcategoria": "Tampo",     "detalhe": ["coarse", "medium", "fine"]},
+    {"nome": "Pe_FE",     "x": ["Esquerda", "Pe_Esq_Int"],  "y": ["Frente", "Pe_Frente_Int"],      "z": ["@nivel", "Tampo_Base"],      "material": "Material_Estrutura", "subcategoria": "Pes",       "detalhe": ["coarse", "medium", "fine"]},
+    {"nome": "Pe_TE",     "x": ["Esquerda", "Pe_Esq_Int"],  "y": ["Pe_Tras_Int", "Tras"],          "z": ["@nivel", "Tampo_Base"],      "material": "Material_Estrutura", "subcategoria": "Pes",       "detalhe": ["coarse", "medium", "fine"]},
+    {"nome": "Pe_FD",     "x": ["Pe_Dir_Int", "Direita"],   "y": ["Frente", "Pe_Frente_Int"],      "z": ["@nivel", "Tampo_Base"],      "material": "Material_Estrutura", "subcategoria": "Pes",       "detalhe": ["coarse", "medium", "fine"]},
+    {"nome": "Pe_TD",     "x": ["Pe_Dir_Int", "Direita"],   "y": ["Pe_Tras_Int", "Tras"],          "z": ["@nivel", "Tampo_Base"],      "material": "Material_Estrutura", "subcategoria": "Pes",       "detalhe": ["coarse", "medium", "fine"]},
+    {"nome": "Painel",    "x": ["Pe_Esq_Int", "Pe_Dir_Int"],"y": ["Painel_Frente", "Painel_Tras"], "z": ["Painel_Base", "Tampo_Base"], "material": "Material_Estrutura", "subcategoria": "Painel",    "detalhe": ["medium", "fine"]},
+    {"nome": "Gaveteiro", "x": ["Gav_Esq", "Pe_Dir_Int"],   "y": ["Pe_Frente_Int", "Painel_Frente"],"z": ["Painel_Base", "Tampo_Base"], "material": "Material_Tampo",     "subcategoria": "Gaveteiro", "detalhe": ["medium", "fine"], "visivel": "Mostrar_Gaveteiro"}
+  ],
+  "tipos": [
+    {"nome": "ESC-01 1200x600", "valores": {"Largura": 1200, "Profundidade": 600}},
+    {"nome": "ESC-01 1400x600", "valores": {"Largura": 1400, "Profundidade": 600}},
+    {"nome": "ESC-01 1600x700", "valores": {"Largura": 1600, "Profundidade": 700}}
+  ]
+}

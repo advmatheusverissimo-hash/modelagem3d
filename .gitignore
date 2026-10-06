@@ -1,0 +1,11 @@
+output/rfa/*
+output/logs/*
+!output/rfa/.gitkeep
+!output/logs/.gitkeep
+*.000?.rfa
+*.000?.rvt
+*.blend1
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

@@ -1,0 +1,72 @@
+{
+  "nome_arquivo": "GSVL_Mesa_Jantar_Retangular",
+  "categoria": "Mobiliário",
+  "templates": ["Mobiliário métrico.rft", "Mobiliario metrico.rft", "Metric Furniture.rft"],
+  "identificacao": {
+    "modelo": "MJR-01",
+    "descricao": "Mesa de jantar retangular paramétrica com pés recuados",
+    "codigo_montagem": "E2010",
+    "omniclass": "23.40.20.14.11",
+    "ifc_export_as": "IfcFurniture",
+    "versao_familia": "0.1.0"
+  },
+  "parametros": [
+    {"nome": "Largura",         "tipo": "comprimento", "instancia": false, "padrao": 1600, "faixa": [1200, 2400]},
+    {"nome": "Profundidade",    "tipo": "comprimento", "instancia": false, "padrao": 900,  "faixa": [800, 1100]},
+    {"nome": "Altura",          "tipo": "comprimento", "instancia": false, "padrao": 760,  "faixa": [740, 780]},
+    {"nome": "Espessura_Tampo", "tipo": "comprimento", "instancia": false, "padrao": 30,   "faixa": [20, 50]},
+    {"nome": "Secao_Pe",        "tipo": "comprimento", "instancia": false, "padrao": 70,   "faixa": [50, 100]},
+    {"nome": "Recuo_Pe",        "tipo": "comprimento", "instancia": false, "padrao": 80,   "faixa": [10, 150]},
+    {"nome": "Material_Tampo",  "tipo": "material",    "instancia": false},
+    {"nome": "Material_Pes",    "tipo": "material",    "instancia": false}
+  ],
+  "planos": [
+    {"nome": "Esquerda",     "eixo": "x", "pos": "-Largura/2",                         "referencia": "Left"},
+    {"nome": "Direita",      "eixo": "x", "pos": "Largura/2",                          "referencia": "Right"},
+    {"nome": "Pe_Esq_Ext",   "eixo": "x", "pos": "-Largura/2+Recuo_Pe",                "referencia": "WeakReference"},
+    {"nome": "Pe_Esq_Int",   "eixo": "x", "pos": "-Largura/2+Recuo_Pe+Secao_Pe",       "referencia": "NotAReference"},
+    {"nome": "Pe_Dir_Ext",   "eixo": "x", "pos": "Largura/2-Recuo_Pe",                 "referencia": "WeakReference"},
+    {"nome": "Pe_Dir_Int",   "eixo": "x", "pos": "Largura/2-Recuo_Pe-Secao_Pe",        "referencia": "NotAReference"},
+    {"nome": "Frente",       "eixo": "y", "pos": "-Profundidade/2",                    "referencia": "Front"},
+    {"nome": "Tras",         "eixo": "y", "pos": "Profundidade/2",                     "referencia": "Back"},
+    {"nome": "Pe_Fr_Ext",    "eixo": "y", "pos": "-Profundidade/2+Recuo_Pe",           "referencia": "WeakReference"},
+    {"nome": "Pe_Fr_Int",    "eixo": "y", "pos": "-Profundidade/2+Recuo_Pe+Secao_Pe",  "referencia": "NotAReference"},
+    {"nome": "Pe_Tr_Ext",    "eixo": "y", "pos": "Profundidade/2-Recuo_Pe",            "referencia": "WeakReference"},
+    {"nome": "Pe_Tr_Int",    "eixo": "y", "pos": "Profundidade/2-Recuo_Pe-Secao_Pe",   "referencia": "NotAReference"},
+    {"nome": "Topo",         "eixo": "z", "pos": "Altura",                             "referencia": "Top"},
+    {"nome": "Tampo_Base",   "eixo": "z", "pos": "Altura-Espessura_Tampo",             "referencia": "WeakReference"}
+  ],
+  "ordens": [
+    ["Esquerda", "Pe_Esq_Ext", "Pe_Esq_Int", "Pe_Dir_Int", "Pe_Dir_Ext", "Direita"],
+    ["Frente", "Pe_Fr_Ext", "Pe_Fr_Int", "Pe_Tr_Int", "Pe_Tr_Ext", "Tras"],
+    ["@nivel", "Tampo_Base", "Topo"]
+  ],
+  "cotas": [
+    {"planos": ["Esquerda", "@centro_x", "Direita"], "eq": true},
+    {"planos": ["Esquerda", "Direita"],              "rotulo": "Largura"},
+    {"planos": ["Frente", "@centro_y", "Tras"],      "eq": true},
+    {"planos": ["Frente", "Tras"],                   "rotulo": "Profundidade"},
+    {"planos": ["@nivel", "Topo"],                   "rotulo": "Altura"},
+    {"planos": ["Tampo_Base", "Topo"],               "rotulo": "Espessura_Tampo"},
+    {"planos": ["Esquerda", "Pe_Esq_Ext"],           "rotulo": "Recuo_Pe"},
+    {"planos": ["Pe_Dir_Ext", "Direita"],            "rotulo": "Recuo_Pe"},
+    {"planos": ["Frente", "Pe_Fr_Ext"],              "rotulo": "Recuo_Pe"},
+    {"planos": ["Pe_Tr_Ext", "Tras"],                "rotulo": "Recuo_Pe"},
+    {"planos": ["Pe_Esq_Ext", "Pe_Esq_Int"],         "rotulo": "Secao_Pe"},
+    {"planos": ["Pe_Dir_Int", "Pe_Dir_Ext"],         "rotulo": "Secao_Pe"},
+    {"planos": ["Pe_Fr_Ext", "Pe_Fr_Int"],           "rotulo": "Secao_Pe"},
+    {"planos": ["Pe_Tr_Int", "Pe_Tr_Ext"],           "rotulo": "Secao_Pe"}
+  ],
+  "caixas": [
+    {"nome": "Tampo", "x": ["Esquerda", "Direita"],       "y": ["Frente", "Tras"],         "z": ["Tampo_Base", "Topo"],   "material": "Material_Tampo", "subcategoria": "Tampo", "detalhe": ["coarse", "medium", "fine"]},
+    {"nome": "Pe_FE", "x": ["Pe_Esq_Ext", "Pe_Esq_Int"],  "y": ["Pe_Fr_Ext", "Pe_Fr_Int"], "z": ["@nivel", "Tampo_Base"], "material": "Material_Pes",   "subcategoria": "Pes",   "detalhe": ["coarse", "medium", "fine"]},
+    {"nome": "Pe_TE", "x": ["Pe_Esq_Ext", "Pe_Esq_Int"],  "y": ["Pe_Tr_Int", "Pe_Tr_Ext"], "z": ["@nivel", "Tampo_Base"], "material": "Material_Pes",   "subcategoria": "Pes",   "detalhe": ["coarse", "medium", "fine"]},
+    {"nome": "Pe_FD", "x": ["Pe_Dir_Int", "Pe_Dir_Ext"],  "y": ["Pe_Fr_Ext", "Pe_Fr_Int"], "z": ["@nivel", "Tampo_Base"], "material": "Material_Pes",   "subcategoria": "Pes",   "detalhe": ["coarse", "medium", "fine"]},
+    {"nome": "Pe_TD", "x": ["Pe_Dir_Int", "Pe_Dir_Ext"],  "y": ["Pe_Tr_Int", "Pe_Tr_Ext"], "z": ["@nivel", "Tampo_Base"], "material": "Material_Pes",   "subcategoria": "Pes",   "detalhe": ["coarse", "medium", "fine"]}
+  ],
+  "tipos": [
+    {"nome": "MJR-01 1600x900 (6 lugares)",  "valores": {"Largura": 1600, "Profundidade": 900}},
+    {"nome": "MJR-01 2000x1000 (8 lugares)", "valores": {"Largura": 2000, "Profundidade": 1000}},
+    {"nome": "MJR-01 2400x1100 (10 lugares)","valores": {"Largura": 2400, "Profundidade": 1100}}
+  ]
+}
