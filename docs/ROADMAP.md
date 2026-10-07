@@ -7,6 +7,9 @@
 - [ ] Registrar aprendizados no CLAUDE.md
 
 ## Fase 2 — Móveis retos
+- [ ] Armário multiuso 2 portas (spec `armario_multiuso_2p.json` criada e validada; 1ª família a rodar no Revit)
+- [ ] Linhas simbólicas em planta (arco de abertura das portas) — o gerador ainda não cria
+- [ ] Prateleiras em quantidade variável (hoje são 4 fixas, distribuídas por fórmula)
 - [ ] Mesa de jantar retangular (spec já criada)
 - [ ] Mesa redonda: o gerador precisa de suporte a extrusão circular (`cilindros`)
 - [ ] Cama (solteiro/casal/queen/king): estrutura + cabeceira + colchão nativo simplificado

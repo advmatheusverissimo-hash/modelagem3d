@@ -25,7 +25,7 @@ Biblioteca de famílias Revit (.rfa) para VENDER a arquitetos e engenheiros: jan
 - Arquivo leve (meta < 500 KB para móvel simples). Passar no flex test sem erros.
 
 ## Formato da spec (resumo)
-- `parametros`: nome, tipo (`comprimento`|`simnao`|`material`|`texto`), `instancia`, `padrao`, `faixa` [min,max], `formula` opcional.
+- `parametros`: nome, tipo (`comprimento`|`simnao`|`material`|`texto`), `instancia`, `padrao`, `faixa` [min,max], `formula` opcional (sintaxe que vale no Revit e no Python, ex.: `(Altura - 6 * Espessura_Chapa) / 5`). Parâmetro com fórmula é calculado pelo validador, nunca varia sozinho e não pode receber valor nos `tipos`.
 - `planos`: nome, eixo (`x`|`y`|`z`), `pos` (expressão em mm com nomes de parâmetros), `referencia` (Left/Right/Front/Back/Top/Bottom/StrongReference/WeakReference/NotAReference).
 - Planos especiais: `@centro_x`, `@centro_y` (planos centrais do template) e `@nivel` (nível de referência).
 - `ordens`: sequências de planos (mesmo eixo) que devem ficar sempre em ordem crescente — o validador testa em todos os extremos das faixas.
@@ -34,7 +34,8 @@ Biblioteca de famílias Revit (.rfa) para VENDER a arquitetos e engenheiros: jan
 - `tipos`: nome + valores.
 
 ## Estado atual
-- v0 do gerador escrito, NUNCA executado no Revit. Primeiro passo: rodar o piloto `specs/escrivaninha.json`, corrigir erros de API e registrar aqui o que foi aprendido.
+- v0 do gerador escrito, NUNCA executado no Revit.
+- Primeira família a rodar (escolha do Matheus): `specs/armario_multiuso_2p.json` (armário multiuso 2 portas). Gerar, corrigir erros de API, flex test e registrar aqui o que foi aprendido. A escrivaninha vem depois.
 
 ## Aprendizados (preencher a cada sessão)
 - (vazio)

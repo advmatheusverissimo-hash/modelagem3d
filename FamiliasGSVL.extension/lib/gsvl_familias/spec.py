@@ -27,8 +27,23 @@ def params_comprimento(spec):
     return [p for p in spec["parametros"] if p["tipo"] == "comprimento"]
 
 
+def params_livres(spec):
+    """Parâmetros de comprimento sem fórmula (os que o usuário controla)."""
+    return [p for p in params_comprimento(spec) if not p.get("formula")]
+
+
+def aplicar_formulas(spec, valores):
+    """Recalcula, na ordem da spec, os parâmetros de comprimento com fórmula."""
+    v = dict(valores)
+    for p in params_comprimento(spec):
+        if p.get("formula"):
+            v[p["nome"]] = avaliar(p["formula"], v)
+    return v
+
+
 def valores_padrao(spec):
-    return dict((p["nome"], float(p["padrao"])) for p in params_comprimento(spec))
+    base = dict((p["nome"], float(p["padrao"])) for p in params_comprimento(spec))
+    return aplicar_formulas(spec, base)
 
 
 def avaliar(expr, valores):
@@ -67,6 +82,12 @@ def validar(spec):
                 erros.append("Parâmetro {0}: comprimento exige 'padrao' e 'faixa'".format(p["nome"]))
             elif not (p["faixa"][0] <= p["padrao"] <= p["faixa"][1]):
                 erros.append("Parâmetro {0}: padrão fora da faixa".format(p["nome"]))
+            if p.get("formula"):
+                try:
+                    aplicar_formulas(spec, dict((x["nome"], float(x.get("padrao", 0)))
+                                                for x in params_comprimento(spec)))
+                except Exception as e:
+                    erros.append("Parâmetro {0}: fórmula '{1}' inválida ({2})".format(p["nome"], p["formula"], e))
 
     padrao = valores_padrao(spec)
     nomes_plano = set(ESPECIAIS)
@@ -138,6 +159,8 @@ def validar(spec):
             p = [x for x in spec["parametros"] if x["nome"] == k]
             if not p:
                 erros.append("Tipo {0}: parâmetro {1} inexistente".format(t["nome"], k))
+            elif p[0].get("formula"):
+                erros.append("Tipo {0}: {1} tem fórmula e não pode receber valor".format(t["nome"], k))
             elif p[0]["tipo"] == "comprimento" and not (p[0]["faixa"][0] <= v <= p[0]["faixa"][1]):
                 erros.append("Tipo {0}: {1}={2} fora da faixa".format(t["nome"], k, v))
     if erros:
@@ -148,22 +171,23 @@ def validar(spec):
     return erros
 
 
-def cenarios(spec, limite=4096):
-    """Padrão, tipos e combinações min/max das faixas."""
+def cenarios(spec, limite=65536):
+    """Padrão, tipos e combinações min/max das faixas (fórmulas recalculadas)."""
     base = valores_padrao(spec)
     yield "padrao", base
     for t in spec["tipos"]:
         v = dict(base)
         v.update(dict((k, float(x)) for k, x in t["valores"].items() if k in base))
-        yield "tipo " + t["nome"], v
-    nomes = [p["nome"] for p in params_comprimento(spec)]
-    faixas = [params_comprimento(spec)[i]["faixa"] for i in range(len(nomes))]
+        yield "tipo " + t["nome"], aplicar_formulas(spec, v)
+    livres = params_livres(spec)
+    nomes = [p["nome"] for p in livres]
+    faixas = [p["faixa"] for p in livres]
     n = 0
     for combo in itertools.product(*[(f[0], f[1]) for f in faixas]):
         n += 1
         if n > limite:
             break
-        yield "extremos", dict(zip(nomes, [float(c) for c in combo]))
+        yield "extremos", aplicar_formulas(spec, dict(zip(nomes, [float(c) for c in combo])))
 
 
 def checar_geometria(spec, folga_mm=1.0):
