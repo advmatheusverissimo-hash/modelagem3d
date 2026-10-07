@@ -40,6 +40,7 @@ Biblioteca de famílias Revit (.rfa) para VENDER a arquitetos e engenheiros: jan
 - Toda família nova entra na casa (`moveis`, com `pendente: true` + `dim_mm` enquanto o .rfa não existir).
 
 ## Estado atual
+- Máquina do Matheus: Revit 2027.3 em português (PTB), licença EDUCACIONAL — serve para desenvolver e testar; para vender é preciso licença comercial (ver ROADMAP, Fase 5).
 - v0 do gerador escrito, NUNCA executado no Revit.
 - Primeira família a rodar (escolha do Matheus): `specs/armario_multiuso_2p.json` (armário multiuso 2 portas). Gerar, corrigir erros de API, flex test e registrar aqui o que foi aprendido. A escrivaninha vem depois.
 
