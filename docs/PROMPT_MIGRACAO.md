@@ -46,6 +46,9 @@ Etapa 2: piloto (escrivaninha)
 - Me passe o passo a passo, curto e numerado, para eu abrir e conferir a família no Revit (planta, 3D, troca de tipos, gaveteiro liga/desliga, níveis de detalhe).
 - Atualize docs/CHECKLIST_VENDA.md e docs/ROADMAP.md e faça commit em português.
 
+Etapa 2b: casa-teste
+- Crie um projeto novo no template de Arquitetura e rode o botão "Casa Teste" (casa/casa_teste.json). Leia o log casa_teste_*, corrija os erros de API até a casa sair limpa e os móveis gerados aparecerem nos cômodos certos, com a pegada real batendo com a spec. Me dê o passo a passo para eu conferir em planta e 3D.
+
 Etapa 3: em seguida, nesta ordem (uma família por vez: gerar, testar, corrigir, commit, atualizar o checklist)
 1. Mesa de jantar retangular (a spec já existe) e redonda (adicione ao gerador o suporte a extrusão circular).
 2. Cama (solteiro, casal, queen e king), com estrutura nativa e colchão nativo simplificado. Deixe preparado o encaixe para uma malha OBJ opcional só na vista Fine (tools/blender/exportar_obj_leve.py).

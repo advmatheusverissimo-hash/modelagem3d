@@ -33,6 +33,12 @@ Biblioteca de famílias Revit (.rfa) para VENDER a arquitetos e engenheiros: jan
 - `caixas`: extrusões retangulares com `x`/`y`/`z` = [plano_min, plano_max], `material`, `visivel` (parâmetro sim/não), `subcategoria`, `detalhe` (coarse/medium/fine).
 - `tipos`: nome + valores.
 
+## Casa-teste (simulação de uso)
+- `casa/casa_teste.json`: casa térrea brasileira (~83 m² úteis: suíte, quarto, 2 banheiros, estar/jantar, cozinha, área de serviço), pé-direito 2,80 m, paredes 15 cm externas e 12 cm internas. Coordenadas em mm pelos eixos.
+- `python tools/validar_casa.py --svg docs/planta_casa_teste.svg` confere aberturas e móveis (dentro do cômodo, sem colisão, fora do giro das portas) e desenha a planta.
+- No Revit: projeto NOVO → botão "Casa Teste" (`gsvl_familias/casa_revit.py`) cria paredes, portas, janelas, piso, ambientes, insere os .rfa de `output/rfa/` e confere a pegada real de cada móvel contra a spec (log `casa_teste_*`).
+- Toda família nova entra na casa (`moveis`, com `pendente: true` + `dim_mm` enquanto o .rfa não existir).
+
 ## Estado atual
 - v0 do gerador escrito, NUNCA executado no Revit.
 - Primeira família a rodar (escolha do Matheus): `specs/armario_multiuso_2p.json` (armário multiuso 2 portas). Gerar, corrigir erros de API, flex test e registrar aqui o que foi aprendido. A escrivaninha vem depois.

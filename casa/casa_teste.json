@@ -1,0 +1,62 @@
+{
+  "nome_arquivo": "GSVL_Casa_Teste",
+  "descricao": "Casa térrea brasileira de referência (~90 m², 2 quartos sendo 1 suíte, sala de estar/jantar, cozinha, área de serviço, 2 banheiros) para testar as famílias GSVL em uso real. Coordenadas em mm pelos EIXOS das paredes; origem no canto frontal esquerdo; y cresce da rua para o fundo.",
+  "pe_direito": 2800,
+  "paredes_tipos": {
+    "externa": {"nome": "GSVL Alvenaria 150", "espessura": 150},
+    "interna": {"nome": "GSVL Alvenaria 120", "espessura": 120}
+  },
+  "paredes": [
+    {"de": [0, 0],       "ate": [10000, 0],    "tipo": "externa"},
+    {"de": [10000, 0],   "ate": [10000, 9000], "tipo": "externa"},
+    {"de": [10000, 9000],"ate": [0, 9000],     "tipo": "externa"},
+    {"de": [0, 9000],    "ate": [0, 0],        "tipo": "externa"},
+    {"de": [6000, 0],    "ate": [6000, 4500],  "tipo": "interna"},
+    {"de": [6000, 3000], "ate": [10000, 3000], "tipo": "interna"},
+    {"de": [6000, 4500], "ate": [10000, 4500], "tipo": "interna"},
+    {"de": [0, 5600],    "ate": [10000, 5600], "tipo": "interna"},
+    {"de": [3600, 5600], "ate": [3600, 9000],  "tipo": "interna"},
+    {"de": [5200, 5600], "ate": [5200, 9000],  "tipo": "interna"},
+    {"de": [8000, 5600], "ate": [8000, 9000],  "tipo": "interna"}
+  ],
+  "portas": [
+    {"nome": "P1 Entrada",          "em": [1200, 0],    "largura": 900, "altura": 2100},
+    {"nome": "P2 Cozinha",          "em": [6000, 2200], "largura": 800, "altura": 2100},
+    {"nome": "P3 Cozinha/Serviço",  "em": [8500, 3000], "largura": 800, "altura": 2100},
+    {"nome": "P4 Serviço/Quintal",  "em": [10000, 3750],"largura": 800, "altura": 2100},
+    {"nome": "P5 Suíte",            "em": [3000, 5600], "largura": 800, "altura": 2100},
+    {"nome": "P6 Banho suíte",      "em": [3600, 6400], "largura": 700, "altura": 2100},
+    {"nome": "P7 Quarto",           "em": [6600, 5600], "largura": 800, "altura": 2100},
+    {"nome": "P8 Banho social",     "em": [8700, 5600], "largura": 700, "altura": 2100}
+  ],
+  "janelas": [
+    {"nome": "J1 Sala",          "em": [4000, 0],    "largura": 1500, "altura": 1200, "peitoril": 1000},
+    {"nome": "J2 Cozinha",       "em": [7800, 0],    "largura": 1200, "altura": 1000, "peitoril": 1100},
+    {"nome": "J3 Suíte",         "em": [0, 7800],    "largura": 1200, "altura": 1200, "peitoril": 1000},
+    {"nome": "J4 Banho suíte",   "em": [4400, 9000], "largura": 600,  "altura": 600,  "peitoril": 1600},
+    {"nome": "J5 Quarto",        "em": [6600, 9000], "largura": 1200, "altura": 1200, "peitoril": 1000},
+    {"nome": "J6 Banho social",  "em": [9000, 9000], "largura": 600,  "altura": 600,  "peitoril": 1600}
+  ],
+  "separadores": [
+    {"de": [6000, 4500], "ate": [6000, 5600], "_obs": "linha separadora de ambientes (sala | circulação), sem parede"}
+  ],
+  "ambientes": [
+    {"nome": "Estar / Jantar",   "eixos": [0, 0, 6000, 5600]},
+    {"nome": "Cozinha",          "eixos": [6000, 0, 10000, 3000]},
+    {"nome": "Área de serviço",  "eixos": [6000, 3000, 10000, 4500]},
+    {"nome": "Circulação",       "eixos": [6000, 4500, 10000, 5600]},
+    {"nome": "Suíte",            "eixos": [0, 5600, 3600, 9000]},
+    {"nome": "Banho suíte",      "eixos": [3600, 5600, 5200, 9000]},
+    {"nome": "Quarto",           "eixos": [5200, 5600, 8000, 9000]},
+    {"nome": "Banho social",     "eixos": [8000, 5600, 10000, 9000]}
+  ],
+  "_rotacao": "rot em graus, anti-horário. rot 0 = frente do móvel virada para -y (para a rua); 90 = frente para +x; 180 = para +y; 270 = para -x. Ponto = origem da família (centro em planta).",
+  "moveis": [
+    {"familia": "GSVL_Mesa_Jantar_Retangular",    "tipo": "MJR-01 1600x900 (6 lugares)", "ambiente": "Estar / Jantar",  "em": [4300, 3300], "rot": 0},
+    {"familia": "GSVL_Armario_Multiuso_2_Portas", "tipo": "ARM-01 720x400x1850",         "ambiente": "Área de serviço", "em": [6600, 4240], "rot": 0},
+    {"familia": "GSVL_Armario_Multiuso_2_Portas", "tipo": "ARM-01 900x450x2000",         "ambiente": "Suíte",           "em": [300, 6250],  "rot": 90},
+    {"familia": "GSVL_Escrivaninha_Parametrica",  "tipo": "ESC-01 1200x600",             "ambiente": "Quarto",          "em": [7640, 7500], "rot": 270},
+    {"familia": "GSVL_Cama", "tipo": "King 1930x2030",    "ambiente": "Suíte",  "em": [2000, 7910], "rot": 0, "pendente": true, "dim_mm": [1930, 2030]},
+    {"familia": "GSVL_Cama", "tipo": "Solteiro 880x1880", "ambiente": "Quarto", "em": [5740, 7985], "rot": 0, "pendente": true, "dim_mm": [880, 1880]}
+  ]
+}

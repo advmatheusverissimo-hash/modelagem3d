@@ -6,6 +6,11 @@
 - [ ] Conferir planta, cortes, 3D e níveis de detalhe
 - [ ] Registrar aprendizados no CLAUDE.md
 
+## Casa-teste
+- [x] Planta da casa térrea em JSON + validador + desenho SVG
+- [ ] Rodar o botão "Casa Teste" no Revit e corrigir erros de API
+- [ ] Usar a casa para renders de catálogo (vistas 3D por cômodo)
+
 ## Fase 2 — Móveis retos
 - [ ] Armário multiuso 2 portas (spec `armario_multiuso_2p.json` criada e validada; 1ª família a rodar no Revit)
 - [ ] Linhas simbólicas em planta (arco de abertura das portas) — o gerador ainda não cria

@@ -20,6 +20,7 @@ Resumo da pesquisa em [`docs/PESQUISA.md`](docs/PESQUISA.md):
 familias-revit/
 ├── CLAUDE.md                     # regras do projeto para o Claude Code
 ├── config.json                   # versão do Revit, pasta de templates, marca
+├── casa/casa_teste.json          # casa térrea para testar os móveis em uso real
 ├── specs/                        # 1 JSON por família (fonte da verdade)
 │   ├── escrivaninha.json         # piloto
 │   └── mesa_jantar_retangular.json
@@ -30,6 +31,7 @@ familias-revit/
 │   └── lib/gsvl_familias/        # biblioteca do gerador
 ├── tools/
 │   ├── validar_specs.py          # valida specs fora do Revit (Python 3)
+│   ├── validar_casa.py           # valida a casa-teste e desenha a planta (SVG)
 │   └── blender/exportar_obj_leve.py
 ├── docs/                         # padrão, checklist, pesquisa, roadmap
 └── output/                       # rfa/ e logs/ (ignorados pelo git)
@@ -44,7 +46,8 @@ familias-revit/
 3. Registre a extensão: `pyrevit extend ui FamiliasGSVL "<caminho>\familias-revit"` **ou** pyRevit › Settings › Custom Extension Directories, apontando para a pasta do repositório. Depois, Reload.
 4. Valide as specs: `python tools/validar_specs.py`
 5. No Revit, abra qualquer projeto. Na aba **FamiliasGSVL**, clique em **Gerar Família**, escolha um JSON e o `.rfa` sai em `output/rfa/`.
-6. Clique em **Flex Test**, escolha o `.rfa` gerado e o relatório sai em `output/logs/`.
+6. Para testar os móveis numa casa: crie um projeto novo e clique em **Casa Teste** (planta em `docs/planta_casa_teste.svg`).
+7. Clique em **Flex Test**, escolha o `.rfa` gerado e o relatório sai em `output/logs/`.
 
 ## Requisitos
 
