@@ -10,6 +10,7 @@ Biblioteca de famílias Revit (.rfa) para VENDER a arquitetos e engenheiros: jan
 4. Blender só para partes orgânicas (estofados), exportadas como OBJ leve (`tools/blender/exportar_obj_leve.py`), visíveis só no nível *Fino* de uma família híbrida.
 
 ## Fluxo de trabalho
+- Atalho: botão **Rodar Tudo** (`gsvl_familias/lote.py`) = gerar todas as specs + flex test + casa-teste mobiliada; o Matheus cola no chat o resumo `output/logs/lote_*.log`. Preparação do PC: `instalar.ps1` (diagnóstico em `output/logs/diagnostico_*.txt`).
 - Antes de qualquer coisa: `python tools/validar_specs.py` precisa passar.
 - Gerar no Revit (botão "Gerar Família") e depois rodar o "Flex Test". Ler `output/logs/` e corrigir até ficar limpo.
 - Quando precisar que o Matheus clique algo no Revit: instruções curtas e numeradas, depois ler o log.

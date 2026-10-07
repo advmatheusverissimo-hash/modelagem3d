@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Gera uma família .rfa a partir de uma spec JSON da pasta specs/."""
 __title__ = "Gerar\nFamília"
+__context__ = "zero-doc"  # funciona com o Revit na tela inicial, sem projeto aberto
 __doc__ = "Escolha uma spec JSON e gere o .rfa em output/rfa (log em output/logs)."
 
 import os

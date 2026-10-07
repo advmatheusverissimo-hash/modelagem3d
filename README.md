@@ -41,13 +41,18 @@ familias-revit/
 
 ## Como usar
 
-1. Instale o [pyRevit](https://github.com/pyrevitlabs/pyRevit/releases).
-2. Ajuste o `config.json` (versão do Revit e pasta de templates `.rft`).
-3. Registre a extensão: `pyrevit extensions paths add "<caminho>\familias-revit"` **ou** pyRevit › Settings › Custom Extension Directories, apontando para a pasta do repositório. Depois, Reload.
-4. Valide as specs: `python tools/validar_specs.py`
-5. No Revit, abra qualquer projeto. Na aba **FamiliasGSVL**, clique em **Gerar Família**, escolha um JSON e o `.rfa` sai em `output/rfa/`.
-6. Para testar os móveis numa casa: crie um projeto novo e clique em **Casa Teste** (planta em `docs/planta_casa_teste.svg`).
-7. Clique em **Flex Test**, escolha o `.rfa` gerado e o relatório sai em `output/logs/`.
+### Caminho rápido (Windows)
+1. Clone: `git clone https://github.com/advmatheusverissimo-hash/modelagem3d.git C:\familias-revit`
+2. No PowerShell: `powershell -ExecutionPolicy Bypass -File C:\familias-revit\instalar.ps1`
+   (confere git/python/pyRevit, acha o Revit e os templates, ajusta o `config.json`, registra a extensão e grava `output\logs\diagnostico_*.txt`).
+3. Feche e reabra o Revit. Na aba **FamiliasGSVL**, clique em **Rodar Tudo** (funciona até na tela inicial).
+4. Ele gera todas as famílias de `specs/` em `output/rfa/`, roda o flex test em cada uma, cria a casa-teste num projeto novo, mobilia e abre a casa. Copie o RESUMO da janela de saída e cole no chat.
+
+### Botões avulsos
+- **Gerar Família**: escolhe um JSON de `specs/` e gera o `.rfa`.
+- **Flex Test**: testa a família ativa (ou um `.rfa` escolhido).
+- **Casa Teste**: monta a casa no projeto ativo (precisa ser um projeto novo). Planta em `docs/planta_casa_teste.svg`.
+- Fora do Revit: `python tools/validar_specs.py` e `python tools/validar_casa.py`.
 
 ## Requisitos
 

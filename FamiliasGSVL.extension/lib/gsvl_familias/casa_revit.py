@@ -324,5 +324,6 @@ def construir(doc, caminho_casa, log):
         doc.SaveAs(destino, opts)
         log.info(u"Salvo: " + destino)
     except Exception as e:
-        log.aviso(u"Não salvei automaticamente ({0}). Salve manualmente em {1}".format(e, destino))
+        log.erro(u"Não consegui salvar em {0} ({1}). Se esse arquivo estiver aberto no Revit, feche e rode de novo".format(destino, e))
+        return None
     return destino

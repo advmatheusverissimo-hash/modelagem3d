@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Flex test da família ativa (ou de um .rfa escolhido)."""
 __title__ = "Flex\nTest"
+__context__ = "zero-doc"  # funciona com o Revit na tela inicial, sem projeto aberto
 __doc__ = "Testa todos os tipos e os extremos das faixas da spec. Não altera o arquivo."
 
 import os

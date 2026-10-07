@@ -29,13 +29,37 @@ def _sem_acento(s):
     return u"".join(c for c in s if not unicodedata.combining(c)).lower()
 
 
-def encontrar_template(templates_dir, nomes):
+# palavras-chave por categoria, usadas quando nenhum nome exato da spec existe na máquina
+CHAVES_CATEGORIA = {
+    u"mobiliario": ([u"mobili", u"furniture"], [u"sistema", u"system"]),
+    u"janelas": ([u"janela", u"window"], [u"cortina", u"curtain"]),
+}
+
+
+def encontrar_template(templates_dir, nomes, categoria=u"", log=None):
+    """Acha o .rft pelo nome exato; se não houver, por palavra-chave da categoria."""
     alvo = set(_sem_acento(n) for n in nomes)
+    todos = []
     for raiz, _dirs, arquivos in os.walk(templates_dir):
         for a in arquivos:
+            if not a.lower().endswith(".rft"):
+                continue
             if _sem_acento(a) in alvo:
                 return os.path.join(raiz, a)
-    raise IOError(u"Template não encontrado em {0}: {1}".format(templates_dir, u", ".join(nomes)))
+            todos.append(os.path.join(raiz, a))
+    incluir, excluir = CHAVES_CATEGORIA.get(_sem_acento(categoria), ([], []))
+    candidatos = [c for c in todos
+                  if any(k in _sem_acento(os.path.basename(c)) for k in incluir)
+                  and not any(k in _sem_acento(os.path.basename(c)) for k in excluir)]
+    if candidatos:
+        # prefere métrico e o nome mais curto (o template "puro" da categoria)
+        candidatos.sort(key=lambda c: (u"metric" not in _sem_acento(c), len(os.path.basename(c))))
+        if log is not None:
+            log.aviso(u"Template exato não encontrado; usando {0} (candidatos: {1})".format(
+                candidatos[0], u", ".join(os.path.basename(c) for c in candidatos[:6])))
+        return candidatos[0]
+    raise IOError(u"Template não encontrado em {0}: {1} ({2} .rft na pasta)".format(
+        templates_dir, u", ".join(nomes), len(todos)))
 
 
 class Construtor(object):
@@ -323,7 +347,7 @@ def gerar(app, caminho_spec, log):
             log.erro(u"Spec: " + e)
         return None
 
-    template = encontrar_template(cfg["templates_dir"], sp["templates"])
+    template = encontrar_template(cfg["templates_dir"], sp["templates"], sp.get("categoria", u""), log)
     log.info(u"Template: " + template)
     doc = app.NewFamilyDocument(template)
 
