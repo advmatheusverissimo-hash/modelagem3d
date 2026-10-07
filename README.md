@@ -35,6 +35,8 @@ familias-revit/
 └── output/                       # rfa/ e logs/ (ignorados pelo git)
 ```
 
+> **Migrando para o Claude Code no Windows?** Veja [`docs/PROMPT_MIGRACAO.md`](docs/PROMPT_MIGRACAO.md).
+
 ## Como usar
 
 1. Instale o [pyRevit](https://github.com/pyrevitlabs/pyRevit/releases).
