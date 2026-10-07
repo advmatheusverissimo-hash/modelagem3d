@@ -32,7 +32,7 @@
 - [ ] Rotina de importação OBJ dentro da família pelo gerador
 
 ## Fase 5 — Comercial
-- [ ] **Licença comercial do Revit antes de vender**: a máquina de produção hoje tem Revit 2027 EDUCACIONAL (não comercial), que não pode ser usado para produzir arquivos para venda
+- [ ] **Lote de release em Revit comercial**: desenvolver e testar no educacional; na hora de vender, rodar o gerador sobre as specs num Revit comercial (completo — o Revit LT não roda pyRevit/API) e publicar só esses .rfa
 - [ ] Decidir a versão mínima de venda (salvar a partir da versão mais antiga suportada, pois .rfa não abre em Revit anterior)
 - [ ] Definir marca e preço; páginas de produto com imagens e ficha técnica
 - [ ] Plataformas: loja própria, BIMobject/BIMsmith, marketplaces de conteúdo BIM
