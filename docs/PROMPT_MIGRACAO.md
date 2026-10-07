@@ -34,7 +34,7 @@ Etapa 0: diagnóstico do ambiente (faça primeiro e me reporte em uma tabela)
 - Corrija o config.json (revit_versao e templates_dir) e os nomes de template nas specs, se não baterem com o que existe na máquina. Rode `python tools/validar_specs.py` e confirme que passa.
 
 Etapa 1: completar a estrutura
-- Registre a extensão no pyRevit (`pyrevit extend ui FamiliasGSVL "C:\familias-revit"` ou o equivalente da versão instalada) e me dê instruções curtas e numeradas para eu dar Reload e conferir a aba FamiliasGSVL com os botões "Gerar Família" e "Flex Test".
+- Registre a extensão no pyRevit (`pyrevit extensions paths add "C:\familias-revit"` ou o equivalente da versão instalada) e me dê instruções curtas e numeradas para eu dar Reload e conferir a aba FamiliasGSVL com os botões "Gerar Família" e "Flex Test".
 - Falta a pasta tests/: crie um script de flex test em lote, executável via `pyrevit run` (se funcionar) e também pelo botão, que percorra todos os .rfa de output/rfa/, todos os tipos, os extremos de cada faixa da spec, e registre erros e avisos em output/logs/. Reaproveite gsvl_familias/flex.py em vez de duplicar código.
 - Mantenha IronPython 2.7 compatível (sem f-strings) enquanto o motor padrão for IronPython.
 

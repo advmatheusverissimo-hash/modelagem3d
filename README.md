@@ -43,7 +43,7 @@ familias-revit/
 
 1. Instale o [pyRevit](https://github.com/pyrevitlabs/pyRevit/releases).
 2. Ajuste o `config.json` (versão do Revit e pasta de templates `.rft`).
-3. Registre a extensão: `pyrevit extend ui FamiliasGSVL "<caminho>\familias-revit"` **ou** pyRevit › Settings › Custom Extension Directories, apontando para a pasta do repositório. Depois, Reload.
+3. Registre a extensão: `pyrevit extensions paths add "<caminho>\familias-revit"` **ou** pyRevit › Settings › Custom Extension Directories, apontando para a pasta do repositório. Depois, Reload.
 4. Valide as specs: `python tools/validar_specs.py`
 5. No Revit, abra qualquer projeto. Na aba **FamiliasGSVL**, clique em **Gerar Família**, escolha um JSON e o `.rfa` sai em `output/rfa/`.
 6. Para testar os móveis numa casa: crie um projeto novo e clique em **Casa Teste** (planta em `docs/planta_casa_teste.svg`).
